@@ -52,6 +52,7 @@ static void opc1()
     cliente.Cantidad = preguntarINT("Ingrese la cantidad de entradas del cliente: ");
     cliente.Abono = calculoAbono(cliente.TipoEntrada, cliente.Cantidad); 
     Tiquetera.AgregarCliente(cliente);
+    Console.Clear();
 }
 
 static void opc2()
