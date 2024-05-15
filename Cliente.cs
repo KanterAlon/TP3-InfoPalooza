@@ -17,6 +17,7 @@
         TipoEntrada = tipoEntrada;
         Cantidad = cantidad;
         Abono = abono;
+        
     }
 
     public Cliente()

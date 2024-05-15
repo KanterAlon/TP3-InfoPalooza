@@ -13,34 +13,14 @@ public static class Tiquetera
 
     public static int DevolverUltimoID()
     {
-        if (dicClientes.Count == 0)
-        {
-            return -1;
-        }
-
-        int maxId = -1;
-        foreach (Cliente cliente in dicClientes.Values)
-        {
-            if (cliente.ID > maxId)
-            {
-                maxId = cliente.ID;
-            }
-        }
-        return maxId;
+        int id = ultimoIdEntrada;
+        return id;
     }
 
-    public static int AgregarCliente(Cliente cliente)
+    public static void AgregarCliente(Cliente cliente)
     {
-        if (dicClientes.ContainsKey(cliente.DNI))
-        {
-            return -1;
-        }
-        else
-        {
-            dicClientes.Add(cliente.DNI, cliente);
-            ultimoIdEntrada = cliente.ID;
-            return ultimoIdEntrada;
-        }
+            dicClientes.Add(DevolverUltimoID()+1, cliente);
+            ultimoIdEntrada++;
     }
 
     public static Cliente BuscarCliente(int DNI)

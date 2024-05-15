@@ -1,6 +1,4 @@
 ﻿MostrarMenu();
-int id = 0;
-
 static void MostrarMenu()
 {
     bool salida = false;
