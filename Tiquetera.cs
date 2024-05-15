@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 
 public static class Tiquetera
 {
@@ -19,8 +20,8 @@ public static class Tiquetera
 
     public static void AgregarCliente(Cliente cliente)
     {
-            dicClientes.Add(DevolverUltimoID()+1, cliente);
-            ultimoIdEntrada++;
+        dicClientes.Add(DevolverUltimoID() + 1, cliente);
+        ultimoIdEntrada++;
     }
 
     public static Cliente BuscarCliente(int ID)
@@ -32,66 +33,73 @@ public static class Tiquetera
     {
         if (dicClientes.ContainsKey(ID))
         {
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("El diccionario contiene la clave " + ID);
+            Console.ResetColor();
+
             dicClientes[ID].TipoEntrada = tipoEntrada;
             dicClientes[ID].Cantidad = cantidad;
             return true;
         }
         else
         {
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("El diccionario no contiene la clave " + ID);
+            Console.ResetColor();
+
             return false;
         }
     }
 
     public static List<string> EstadisticasTicketera()
-{
-    Console.Clear();
-    List<string> estadisticas = new List<string>();
-    Dictionary<int, int> conteoEntradas = new Dictionary<int, int>();
-    Dictionary<int, int> recaudacionPorTipo = new Dictionary<int, int>();
-    int totalEntradas = 0;
-    int recaudacionTotal = 0;
-
-    foreach (Cliente cliente in dicClientes.Values)
     {
-        if (!conteoEntradas.ContainsKey(cliente.TipoEntrada))
+        Console.Clear();
+        List<string> estadisticas = new List<string>();
+        Dictionary<int, int> conteoEntradas = new Dictionary<int, int>();
+        Dictionary<int, int> recaudacionPorTipo = new Dictionary<int, int>();
+        int totalEntradas = 0;
+        int recaudacionTotal = 0;
+
+        foreach (Cliente cliente in dicClientes.Values)
         {
-            conteoEntradas[cliente.TipoEntrada] = 0;
-            recaudacionPorTipo[cliente.TipoEntrada] = 0;
+            if (!conteoEntradas.ContainsKey(cliente.TipoEntrada))
+            {
+                conteoEntradas[cliente.TipoEntrada] = 0;
+                recaudacionPorTipo[cliente.TipoEntrada] = 0;
+            }
+            conteoEntradas[cliente.TipoEntrada] += cliente.Cantidad;
+            totalEntradas += cliente.Cantidad;
+            recaudacionPorTipo[cliente.TipoEntrada] += cliente.Abono;
+            recaudacionTotal += cliente.Abono;
         }
-        conteoEntradas[cliente.TipoEntrada] += cliente.Cantidad;
-        totalEntradas += cliente.Cantidad;
-        recaudacionPorTipo[cliente.TipoEntrada] += cliente.Abono;
-        recaudacionTotal += cliente.Abono;
+
+        estadisticas.Add("Cantidad de clientes inscriptos: " + dicClientes.Count.ToString());
+        estadisticas.Add("----------------");
+
+        foreach (int tipoEntrada in conteoEntradas.Keys)
+        {
+            estadisticas.Add("Tipo de Entrada: " + tipoEntrada + ", Cantidad vendida: " + conteoEntradas[tipoEntrada].ToString());
+        }
+        estadisticas.Add("----------------");
+
+        foreach (int tipoEntrada in conteoEntradas.Keys)
+        {
+            int cantidad = conteoEntradas[tipoEntrada];
+            double porcentaje = (100.0 * cantidad) / totalEntradas;
+            estadisticas.Add("Tipo de Entrada: " + tipoEntrada + ", Porcentaje del total: " + porcentaje.ToString("0.00") + "%");
+        }
+        estadisticas.Add("----------------");
+
+        foreach (int tipoEntrada in recaudacionPorTipo.Keys)
+        {
+            estadisticas.Add("Tipo de Entrada: " + tipoEntrada + ", Recaudación: " + recaudacionPorTipo[tipoEntrada].ToString());
+        }
+        estadisticas.Add("----------------");
+
+        estadisticas.Add("Recaudación total: " + recaudacionTotal.ToString());
+
+        return estadisticas;
     }
-
-    estadisticas.Add("Cantidad de clientes inscriptos: " + dicClientes.Count.ToString());
-    estadisticas.Add("----------------");
-
-    foreach (int tipoEntrada in conteoEntradas.Keys)
-    {
-        estadisticas.Add("Tipo de Entrada: " + tipoEntrada + ", Cantidad vendida: " + conteoEntradas[tipoEntrada].ToString());
-    }
-    estadisticas.Add("----------------");
-
-    foreach (int tipoEntrada in conteoEntradas.Keys)
-    {
-        int cantidad = conteoEntradas[tipoEntrada];
-        double porcentaje = (100.0 * cantidad) / totalEntradas;
-        estadisticas.Add("Tipo de Entrada: " + tipoEntrada + ", Porcentaje del total: " + porcentaje.ToString("0.00") + "%");
-    }
-    estadisticas.Add("----------------");
-
-    foreach (int tipoEntrada in recaudacionPorTipo.Keys)
-    {
-        estadisticas.Add("Tipo de Entrada: " + tipoEntrada + ", Recaudación: " + recaudacionPorTipo[tipoEntrada].ToString());
-    }
-    estadisticas.Add("----------------");
-
-    estadisticas.Add("Recaudación total: " + recaudacionTotal.ToString());
-
-    return estadisticas;
-}
-
 }
