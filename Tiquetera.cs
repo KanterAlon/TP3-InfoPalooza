@@ -23,18 +23,30 @@ public static class Tiquetera
             ultimoIdEntrada++;
     }
 
-    public static Cliente BuscarCliente(int DNI)
+    public static Cliente BuscarCliente(int ID)
     {
-        return dicClientes[DNI];
+        return dicClientes[ID];
     }
 
     public static bool CambiarEntrada(int ID, int tipoEntrada, int cantidad)
     {
-        return true;
+        if (dicClientes.ContainsKey(ID))
+        {
+            Console.WriteLine("El diccionario contiene la clave " + ID);
+            dicClientes[ID].TipoEntrada = tipoEntrada;
+            dicClientes[ID].Cantidad = cantidad;
+            return true;
+        }
+        else
+        {
+            Console.WriteLine("El diccionario no contiene la clave " + ID);
+            return false;
+        }
     }
 
     public static List<string> EstadisticasTicketera()
 {
+    Console.Clear();
     List<string> estadisticas = new List<string>();
     Dictionary<int, int> conteoEntradas = new Dictionary<int, int>();
     Dictionary<int, int> recaudacionPorTipo = new Dictionary<int, int>();

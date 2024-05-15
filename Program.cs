@@ -1,10 +1,12 @@
-﻿MostrarMenu();
+﻿Console.Clear();
+MostrarMenu();
 static void MostrarMenu()
 {
     bool salida = false;
 
     while (!salida)
     {
+        Console.WriteLine();
         Console.WriteLine("==== InfoPalooza 2024 ====");
         Console.WriteLine("1. Nueva Inscripción");
         Console.WriteLine("2. Obtener Estadísticas del Evento");
@@ -13,8 +15,7 @@ static void MostrarMenu()
         Console.WriteLine("5. Salir");
         Console.WriteLine("==== InfoPalooza 2024 ====");
         Console.Write("Seleccione una opción: ");
-        
-        // Corrected the method call here by providing a proper message and limits.
+
         int opcion = preguntarINTconParametros("Ingrese una opción entre 1 y 5: ", 1, 5);
 
         switch (opcion)
@@ -26,10 +27,10 @@ static void MostrarMenu()
                 opc2();
                 break;
             case 3:
-                // Implementar búsqueda de cliente
+                opc3();
                 break;
             case 4:
-                // Implementar cambio de entrada del cliente
+                opc4();
                 break;
             case 5:
                 salida = true;
@@ -61,6 +62,33 @@ List<string> lista = Tiquetera.EstadisticasTicketera();
 foreach (string a in lista)
     {
         Console.WriteLine(a);
+    }
+}
+
+static void opc3()
+{
+    int id = preguntarINT("Ingrese el ID del usuario a buscar: ");
+    Cliente clienteBuscado = new Cliente();
+    clienteBuscado = Tiquetera.BuscarCliente(id);
+    Console.WriteLine("Nombre: " + clienteBuscado.Nombre);
+    Console.WriteLine("Apellido: " + clienteBuscado.Apellido);
+    Console.WriteLine("DNI: " + clienteBuscado.DNI);
+    Console.WriteLine("Fecha Inscripcion: " + clienteBuscado.FechaInscripcion);
+    Console.WriteLine("Tipo de entrada comprada: " + clienteBuscado.TipoEntrada);
+    Console.WriteLine("Cantidad de entradas compradas: " + clienteBuscado.Cantidad);
+    Console.WriteLine("Abono: " + clienteBuscado.Abono);
+}
+
+static void opc4()
+{
+    bool sePudo = Tiquetera.CambiarEntrada(preguntarINT("Ingrese el ID del cliente: "), preguntarINT("Ingrese el tipo de entrada que desea: "), preguntarINT("Ingrese la cantidad de entradas que desea: "));
+    if (sePudo == true)
+    {
+        Console.WriteLine("El cambio se hizo con exito!");
+    }
+    else
+    {
+        Console.WriteLine("No se pudo hacer el cambio. Volve a intentarlo");
     }
 }
 
@@ -97,11 +125,6 @@ static DateTime devolverDatetime()
     return fecha;
 }
 
-static void pausa()
-{
-    Console.WriteLine("Presione cualquier tecla para continuar...");
-    Console.ReadKey();
-}
 
 static int preguntarINT(string msj)
 {
