@@ -1,5 +1,8 @@
-﻿Console.Clear();
+using System;
+
+Console.Clear();
 MostrarMenu();
+
 static void MostrarMenu()
 {
     bool salida = false;
@@ -7,13 +10,19 @@ static void MostrarMenu()
     while (!salida)
     {
         Console.WriteLine();
+        Console.BackgroundColor = ConsoleColor.Blue;
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("==== InfoPalooza 2024 ====");
+        Console.ResetColor();
         Console.WriteLine("1. Nueva Inscripción");
         Console.WriteLine("2. Obtener Estadísticas del Evento");
         Console.WriteLine("3. Buscar Cliente");
         Console.WriteLine("4. Cambiar Entrada de un Cliente");
         Console.WriteLine("5. Salir");
+        Console.BackgroundColor = ConsoleColor.Blue;
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("==== InfoPalooza 2024 ====");
+        Console.ResetColor();
         Console.Write("Seleccione una opción: ");
 
         int opcion = preguntarINTconParametros("Ingrese una opción entre 1 y 5: ", 1, 5);
@@ -57,10 +66,9 @@ static void opc1()
 
 static void opc2()
 {
+    List<string> lista = Tiquetera.EstadisticasTicketera();
 
-List<string> lista = Tiquetera.EstadisticasTicketera();
-
-foreach (string a in lista)
+    foreach (string a in lista)
     {
         Console.WriteLine(a);
     }
@@ -85,11 +93,17 @@ static void opc4()
     bool sePudo = Tiquetera.CambiarEntrada(preguntarINT("Ingrese el ID del cliente: "), preguntarINT("Ingrese el tipo de entrada que desea: "), preguntarINT("Ingrese la cantidad de entradas que desea: "));
     if (sePudo == true)
     {
+        Console.BackgroundColor = ConsoleColor.Green;
+        Console.ForegroundColor = ConsoleColor.Black;
         Console.WriteLine("El cambio se hizo con exito!");
+        Console.ResetColor();
     }
     else
     {
+        Console.BackgroundColor = ConsoleColor.Red;
+        Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("No se pudo hacer el cambio. Volve a intentarlo");
+        Console.ResetColor();
     }
 }
 
@@ -98,7 +112,6 @@ static DateTime preguntarFecha()
     DateTime hoy = DateTime.Now;
     Console.WriteLine("Hoy es " + hoy + ". Desea cambiar la fecha (1) o continuar con la fecha actual (2)?");
 
-    // Use the `preguntarINTconParametros` function correctly by providing a proper message.
     int opcion = preguntarINTconParametros("Elija 1 para cambiar la fecha, o 2 para continuar con la fecha actual: ", 1, 2);
 
     if (opcion == 2)
@@ -125,7 +138,6 @@ static DateTime devolverDatetime()
     }
     return fecha;
 }
-
 
 static int preguntarINT(string msj)
 {
