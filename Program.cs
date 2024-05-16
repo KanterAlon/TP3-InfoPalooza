@@ -9,6 +9,7 @@ static void MostrarMenu()
 
     while (!salida)
     {
+
         Console.WriteLine();
         Console.BackgroundColor = ConsoleColor.Blue;
         Console.ForegroundColor = ConsoleColor.White;
@@ -77,15 +78,11 @@ static void opc2()
 static void opc3()
 {
     int id = preguntarINT("Ingrese el ID del usuario a buscar: ");
-    Cliente clienteBuscado = new Cliente();
-    clienteBuscado = Tiquetera.BuscarCliente(id);
-    Console.WriteLine("Nombre: " + clienteBuscado.Nombre);
-    Console.WriteLine("Apellido: " + clienteBuscado.Apellido);
-    Console.WriteLine("DNI: " + clienteBuscado.DNI);
-    Console.WriteLine("Fecha Inscripcion: " + clienteBuscado.FechaInscripcion);
-    Console.WriteLine("Tipo de entrada comprada: " + clienteBuscado.TipoEntrada);
-    Console.WriteLine("Cantidad de entradas compradas: " + clienteBuscado.Cantidad);
-    Console.WriteLine("Abono: " + clienteBuscado.Abono);
+    List<string> lista = Tiquetera.ObtenerClientePorId(id);
+    foreach (string fila in lista)
+    {
+        Console.WriteLine(fila);
+    }
 }
 
 static void opc4()

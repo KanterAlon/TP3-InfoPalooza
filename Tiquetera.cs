@@ -24,10 +24,27 @@ public static class Tiquetera
         ultimoIdEntrada++;
     }
 
-    public static Cliente BuscarCliente(int ID)
+public static List<string> ObtenerClientePorId(int id)
+{
+    List<string> resultado = new List<string>();
+
+    if (!dicClientes.ContainsKey(id))
     {
-        return dicClientes[ID];
+        resultado.Add("No existe el código en el diccionario");
     }
+    else
+    {
+        Cliente cliente = dicClientes[id];
+        resultado.Add("Nombre del cliente: " + cliente.Nombre);
+        resultado.Add("Apellido del cliente: " + cliente.Apellido);
+        resultado.Add("DNI del cliente: " + cliente.DNI.ToString());
+        resultado.Add("Tipo de entrada del cliente: " + cliente.TipoEntrada.ToString());
+        resultado.Add("Cantidad del cliente: " + cliente.Cantidad.ToString());
+        resultado.Add("Fecha de inscripción del cliente: " + cliente.FechaInscripcion.ToString());
+    }
+
+    return resultado;
+}
 
     public static bool CambiarEntrada(int ID, int tipoEntrada, int cantidad)
     {
