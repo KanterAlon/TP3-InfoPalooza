@@ -20,6 +20,7 @@ static void MostrarMenu()
         Console.WriteLine("3. Buscar Cliente");
         Console.WriteLine("4. Cambiar Entrada de un Cliente");
         Console.WriteLine("5. Salir");
+        Console.WriteLine("6. Lista Clientes (Extra)");
         Console.BackgroundColor = ConsoleColor.Blue;
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine("==== InfoPalooza 2024 ====");
@@ -46,6 +47,7 @@ static void MostrarMenu()
                 salida = true;
                 break;
             default:
+                salida = true;
                 break;
         }
     }

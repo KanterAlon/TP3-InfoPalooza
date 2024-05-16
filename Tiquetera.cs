@@ -119,4 +119,15 @@ public static List<string> ObtenerClientePorId(int id)
 
         return estadisticas;
     }
+public static List<Cliente> extra1(Dictionary<string, Cliente> dicClientes)
+{
+    List<Cliente> resultado = new List<Cliente>();
+
+    foreach (var entry in dicClientes)
+    {
+        resultado.Add(entry.Value);
+    }
+
+    return resultado;
+}
 }
